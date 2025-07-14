@@ -1,5 +1,10 @@
 <?php
-$breadcrumbs = Breadcrumbs::generate(Route::currentRouteName());
+try {
+    $breadcrumbs = Breadcrumbs::generate(Route::currentRouteName());
+} catch (\Exception $e) {
+    // Handle the case where breadcrumbs cannot be generated
+    $breadcrumbs = collect();
+}
 ?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">

@@ -8,7 +8,6 @@ class TicketController extends Controller
 {
     public function index()
     {
-        // Logic to retrieve and display tickets
         return view('tickets.index');
     }
 }

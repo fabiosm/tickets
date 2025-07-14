@@ -29,6 +29,17 @@ class BreadcrumbsServiceProvider extends ServiceProvider
                     'text' => '',
                 ]
             );
-        });
+       });
+
+        Breadcrumbs::for('profile', function ($trail) {
+            $trail->push(
+                'Profile',
+                route('profile'),
+                [
+                    'icon' => 'bi bi-person',
+                    'text' => '',
+                ]
+            );
+       });
     }
 }
