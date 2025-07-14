@@ -1,6 +1,7 @@
 <?php
 try {
-    $breadcrumbs = Breadcrumbs::generate(Route::currentRouteName());
+    $paramTipo = Route::current()->parameter('tipo');
+    $breadcrumbs = Breadcrumbs::generate(Route::currentRouteName(), $paramTipo);
 } catch (\Exception $e) {
     // Handle the case where breadcrumbs cannot be generated
     $breadcrumbs = collect();
@@ -29,7 +30,7 @@ try {
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   </head>
@@ -47,11 +48,13 @@ try {
                 </div>
                 <ul class="app-breadcrumb breadcrumb">
                     <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
-                    <li class="breadcrumb-item">
-                        <a href="{{ $breadcrumbs->first()->url }}">
-                            {{ $breadcrumbs->first()->title }}
-                        </a>
-                    </li>
+                    @foreach ($breadcrumbs as $breadcrumb)
+                        <li class="breadcrumb-item">
+                            <a href="{{ $breadcrumb->url }}">
+                                {{ $breadcrumb->title }}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         @endif
@@ -61,10 +64,14 @@ try {
         </main>
     </main>
     <!-- Essential javascripts for application to work-->
-    <script src="js/jquery-3.7.0.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
     <!-- Page specific javascripts-->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <!-- Page specific javascripts-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="{{ asset('js/plugins/jquery.dataTables.min.js') }}"></script>
   </body>
 </html>

@@ -8,6 +8,25 @@ class TicketController extends Controller
 {
     public function index()
     {
-        return view('tickets.index');
+        $filasTickets = [
+            'pendente' => [
+                'count' => 5,
+                'color' => 'danger'
+            ],
+            'andamento' => [
+                'count' => 2,
+                'color' => 'warning'
+            ],
+            'encerrado' => [
+                'count' => 0,
+                'color' => 'primary'
+            ],
+        ];
+        return view('tickets.index', compact('filasTickets'));
+    }
+
+    public function fila()
+    {
+        return view('tickets.fila');
     }
 }

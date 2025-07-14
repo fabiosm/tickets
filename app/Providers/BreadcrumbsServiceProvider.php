@@ -29,7 +29,19 @@ class BreadcrumbsServiceProvider extends ServiceProvider
                     'text' => '',
                 ]
             );
-       });
+        });
+
+        Breadcrumbs::for('tickets.fila', function ($trail, $tipo) {
+            $trail->parent('dashboard');
+            $trail->push(
+                'Tickets ' . ucfirst($tipo),
+                route('tickets.fila', ['tipo' => $tipo]),
+                [
+                    'icon' => 'bi bi-list-task',
+                    'text' => '',
+                ]
+            );
+        });
 
         Breadcrumbs::for('profile', function ($trail) {
             $trail->push(

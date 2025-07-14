@@ -6,9 +6,10 @@ use PHPUnit\Framework\Attributes\Ticket;
 
 Route::view('/', 'welcome');
 
-Route::get('tickets', [TicketController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('tickets', [TicketController::class, 'index'])->name('dashboard');
+    Route::get('tickets/fila/{tipo}', [TicketController::class, 'fila'])->name('tickets.fila');
+});
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
