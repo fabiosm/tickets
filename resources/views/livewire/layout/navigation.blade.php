@@ -14,8 +14,8 @@ new class extends Component
 
         $this->redirect('/', navigate: true);
     }
-}; ?>
-
+};
+?>
 <div>
    <!-- Navbar-->
     <header class="app-header"><a class="app-header__logo" href="{{ route('dashboard') }}">Vali</a>
@@ -89,7 +89,12 @@ new class extends Component
         </div>
       </div>
       <ul class="app-menu">
-        <li><a class="app-menu__item active" href="{{ route('dashboard') }}"><i class="app-menu__icon bi bi-speedometer"></i><span class="app-menu__label">Dashboard</span></a></li>
+        <li>
+            <a class="app-menu__item active" href="{{ route('dashboard') }}">
+                <i class="app-menu__icon bi bi-list-task"></i>
+                <span class="app-menu__label">Meus tickets</span>
+            </a>
+        </li>
         {{--
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-laptop"></i><span class="app-menu__label">UI Elements</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
           <ul class="treeview-menu">

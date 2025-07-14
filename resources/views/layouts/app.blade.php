@@ -1,3 +1,6 @@
+<?php
+$breadcrumbs = Breadcrumbs::generate(Route::currentRouteName());
+?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   <head>
@@ -28,16 +31,25 @@
   <body class="app sidebar-mini">
     <livewire:layout.navigation />
     <main class="app-content">
-        <div class="app-title">
-            <div>
-                <h1><i class="bi bi-speedometer"></i> Dashboard</h1>
-                <p>A free and open source Bootstrap 5 admin template</p>
+        @if (count($breadcrumbs))
+            <div class="app-title">
+                <div>
+                    <h1>
+                        <i class="{{ $breadcrumbs->last()->icon }}"></i>
+                        {{ $breadcrumbs->last()->title }}
+                    </h1>
+                    <p>{{ $breadcrumbs->last()->text }}</p>
+                </div>
+                <ul class="app-breadcrumb breadcrumb">
+                    <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ $breadcrumbs->first()->url }}">
+                            {{ $breadcrumbs->first()->title }}
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <ul class="app-breadcrumb breadcrumb">
-                <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            </ul>
-        </div>
+        @endif
         <!-- Page Content -->
         <main>
             {{ $slot }}
