@@ -18,7 +18,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <a href="">
+                                        <a href="" data-bs-toggle="tooltip" title="Mensagem do tooltip">
                                             1
                                         </a>
                                     </td>
@@ -26,23 +26,31 @@
                                     <td>Tipo A</td>
                                     <td>Solicitação 1</td>
                                     <td>Solicitante 1</td>
-                                    <td>2023-01-01</td>
+                                    <td data-order="2023-01-01">01/01/2023</td>
                                 </tr>
                                 <tr>
-                                    <td>2</td>
+                                    <td>
+                                        <a href="" data-bs-toggle="tooltip" title="Mensagem do tooltip">
+                                            2
+                                        </a>
+                                    </td>
                                     <td>Jane Smith</td>
                                     <td>Tipo B</td>
                                     <td>Solicitação 2</td>
                                     <td>Solicitante 2</td>
-                                    <td>2023-01-02</td>
+                                    <td data-order="2023-01-02">02/01/2023</td>
                                 </tr>
                                 <tr>
-                                    <td>3</td>
+                                    <td>
+                                        <a href="" data-bs-toggle="tooltip" title="Mensagem do tooltip">
+                                            3
+                                        </a>
+                                    </td>
                                     <td>Bob Johnson</td>
                                     <td>Tipo C</td>
                                     <td>Solicitação 3</td>
                                     <td>Solicitante 3</td>
-                                    <td>2023-01-03</td>
+                                    <td data-order="2023-01-03">03/01/2023</td>
                                 </tr>
 
                                 </tr>
@@ -55,5 +63,12 @@
     </div>
 </x-app-layout>
 @scripts
-    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+    <script>
+        $('#sampleTable').DataTable();
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    </script>
 @endscripts

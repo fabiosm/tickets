@@ -47,7 +47,11 @@ try {
                     <p>{{ $breadcrumbs->last()->text }}</p>
                 </div>
                 <ul class="app-breadcrumb breadcrumb">
-                    <li class="breadcrumb-item"><i class="bi bi-house-door fs-6"></i></li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('dashboard') }}">
+                            <i class="bi bi-house-door fs-6"></i>
+                        </a>
+                    </li>
                     @foreach ($breadcrumbs as $breadcrumb)
                         <li class="breadcrumb-item">
                             <a href="{{ $breadcrumb->url }}">
