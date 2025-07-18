@@ -29,4 +29,9 @@ class TicketController extends Controller
     {
         return view('tickets.fila');
     }
+
+    public function novo()
+    {
+        return view('tickets.novo');
+    }
 }

@@ -43,12 +43,23 @@ class BreadcrumbsServiceProvider extends ServiceProvider
             );
         });
 
+        Breadcrumbs::for('tickets.novo', function ($trail) {
+            $trail->push(
+                'Abrir Tickets',
+                route('tickets.novo'),
+                [
+                    'icon' => 'bi bi-list-task',
+                    'text' => '',
+                ]
+            );
+        });
+
         Breadcrumbs::for('profile', function ($trail) {
             $trail->push(
                 'Profile',
                 route('profile'),
                 [
-                    'icon' => 'bi bi-person',
+                    'icon' => 'bi bi-ticket-perforated',
                     'text' => '',
                 ]
             );

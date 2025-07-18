@@ -1,12 +1,3 @@
-<?php
-try {
-    $paramTipo = Route::current()->parameter('tipo');
-    $breadcrumbs = Breadcrumbs::generate(Route::currentRouteName(), $paramTipo);
-} catch (\Exception $e) {
-    // Handle the case where breadcrumbs cannot be generated
-    $breadcrumbs = collect();
-}
-?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -39,31 +30,7 @@ try {
     <body class="app sidebar-mini">
         <livewire:layout.navigation />
         <main class="app-content">
-            @if (count($breadcrumbs))
-                <div class="app-title">
-                    <div>
-                        <h1>
-                            <i class="{{ $breadcrumbs->last()->icon }}"></i>
-                            {{ $breadcrumbs->last()->title }}
-                        </h1>
-                        <p>{{ $breadcrumbs->last()->text }}</p>
-                    </div>
-                    <ul class="app-breadcrumb breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('dashboard') }}">
-                                <i class="bi bi-house-door fs-6"></i>
-                            </a>
-                        </li>
-                        @foreach ($breadcrumbs as $breadcrumb)
-                            <li class="breadcrumb-item">
-                                <a href="{{ $breadcrumb->url }}">
-                                    {{ $breadcrumb->title }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <livewire:layout.breadcrumbs />
             <!-- Page Content -->
             <main>
                 {{ $slot }}
