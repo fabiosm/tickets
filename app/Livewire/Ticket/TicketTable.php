@@ -12,12 +12,13 @@ class TicketTable extends DataTableComponent
 
     public function configure(): void
     {
+        $this->dispatch('scriptModalTable');
         $this->setPrimaryKey('id');
     }
 
     public function abreModal()
     {
-        $this->dispatch('openModal', 1);
+        $this->dispatch('openModal', true);
     }
 
     public function columns(): array

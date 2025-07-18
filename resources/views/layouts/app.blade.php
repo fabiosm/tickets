@@ -34,6 +34,7 @@ try {
         <!-- Font-icon css-->
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         @livewireStyles
+        @stack('styles')
     </head>
     <body class="app sidebar-mini">
         <livewire:layout.navigation />
@@ -74,10 +75,6 @@ try {
         <script src="{{ asset('js/main.js') }}"></script>
         <!-- Page specific javascripts-->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-        <!-- Page specific javascripts-->
-        <link rel="stylesheet" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css">
-        <!-- Data table plugin-->
-        <script type="text/javascript" src="{{ asset('js/plugins/jquery.dataTables.min.js') }}"></script>
         @livewireScripts
         @stack('scripts')
     </body>
