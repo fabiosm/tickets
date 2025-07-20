@@ -32,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
                     'icon' => 'bi bi-gear',
                     'menu' => [
                         [
+                            'name' => 'Usuários',
+                            'url' => route('users.index')
+                        ],
+                        [
                             'name' => 'Ticket',
                             'url' => '#'
                         ]

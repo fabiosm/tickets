@@ -64,5 +64,16 @@ class BreadcrumbsServiceProvider extends ServiceProvider
                 ]
             );
        });
+
+        Breadcrumbs::for('users.index', function ($trail) {
+            $trail->push(
+                'Usuários',
+                route('users.index'),
+                [
+                    'icon' => 'bi bi-people-fill',
+                    'text' => 'Gestão de acesso ao sistema',
+                ]
+            );
+       });
     }
 }

@@ -69,7 +69,7 @@ new class extends Component
                     <ul class="treeview-menu">
                     @foreach ($item['menu'] as $i => $sub)
                         <li>
-                            <a class="treeview-item" href="#">
+                            <a class="treeview-item" href="{{ $sub['url'] }}">
                                 <i class="icon bi bi-circle-fill"></i>
                                 {{ $sub['name'] }}
                             </a>
