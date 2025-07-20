@@ -53,14 +53,30 @@ new class extends Component
         </div>
         <ul class="app-menu">
         @foreach ($menu as $item)
-            @php
-            $active = Route::currentRouteName() == $item['url'] ? 'active' : '';
-            @endphp
-            <li>
-                <a class="app-menu__item {{ $active }}" href="{{ route($item['url']) }}">
+            <li class="treeview">
+                <a
+                    class="app-menu__item {{ $item['active'] }}"
+                    href="{{ $item['url'] }}"
+                    @if ($item['submenu']) data-toggle="treeview" @endif
+                >
                     <i class="app-menu__icon bi {{ $item['icon'] }}"></i>
                     <span class="app-menu__label">{{ $item['name'] }}</span>
+                    @if ($item['submenu'])
+                        <i class="treeview-indicator bi bi-chevron-right"></i>
+                    @endif
                 </a>
+                @if ($item['submenu'])
+                    <ul class="treeview-menu">
+                    @foreach ($item['menu'] as $i => $sub)
+                        <li>
+                            <a class="treeview-item" href="#">
+                                <i class="icon bi bi-circle-fill"></i>
+                                {{ $sub['name'] }}
+                            </a>
+                        </li>
+                    @endforeach
+                    </ul>
+                @endif
             </li>
         @endforeach
         </ul>
