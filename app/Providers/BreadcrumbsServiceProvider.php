@@ -45,7 +45,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider
 
         Breadcrumbs::for('tickets.novo', function ($trail) {
             $trail->push(
-                'Abrir Tickets',
+                'Abrir Ticket',
                 route('tickets.novo'),
                 [
                     'icon' => 'bi bi-list-task',
