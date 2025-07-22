@@ -28,6 +28,16 @@
         @stack('styles')
     </head>
     <body class="app sidebar-mini">
+        <!-- TOAST USADO PARA ALERTAS -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="livewire-toast" class="toast align-items-center text-white bg-success border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body" id="livewire-toast-message"></div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
+
         <livewire:layout.navigation />
         <main class="app-content">
             <livewire:layout.breadcrumbs />
@@ -44,5 +54,15 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
         @livewireScripts
         @stack('scripts')
+        <script>
+            window.addEventListener('showToast', event => {
+                console.log(event)
+                const message = event.detail[0].message || 'Ação realizada com sucesso!';
+                document.getElementById('livewire-toast-message').textContent = message;
+                const toastEl = document.getElementById('livewire-toast');
+                const toast = new bootstrap.Toast(toastEl);
+                toast.show();
+            });
+        </script>
     </body>
 </html>
