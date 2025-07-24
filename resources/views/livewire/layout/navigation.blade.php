@@ -53,7 +53,7 @@ new class extends Component
         </div>
         <ul class="app-menu">
         @foreach ($menu as $item)
-            <li class="treeview">
+            <li class="treeview {{ $item['isExpanded'] }}">
                 <a
                     class="app-menu__item {{ $item['active'] }}"
                     href="{{ $item['url'] }}"
@@ -69,7 +69,7 @@ new class extends Component
                     <ul class="treeview-menu">
                     @foreach ($item['menu'] as $i => $sub)
                         <li>
-                            <a class="treeview-item" href="{{ $sub['url'] }}">
+                            <a class="treeview-item {{ $sub['active'] }}" href="{{ $sub['url'] }}">
                                 <i class="icon bi bi-circle-fill"></i>
                                 {{ $sub['name'] }}
                             </a>

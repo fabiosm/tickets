@@ -23,6 +23,10 @@ class UserTable extends DataTableComponent
             Column::make('Usuário', 'name')->sortable()->searchable(),
             Column::make('E-mail', 'email')->sortable()->searchable(),
             Column::make('Data criação', 'created_at')->sortable()->searchable(),
+            Column::make('Admin', 'is_admin')->format(function($value) {
+                $isAdmin = ($value) ? 'checked' : '';
+                return '<input class="form-check-input" disabled '.$isAdmin.' type="checkbox" />';
+            })->html(),
             Column::make('Ações', 'id')->format(function($value) {
                 return '<a
                     data-bs-toggle="tooltip"
