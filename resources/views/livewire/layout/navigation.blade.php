@@ -1,19 +1,3 @@
-@php
-use App\Livewire\Actions\Logout;
-use Livewire\Volt\Component;
-
-new class extends Component
-{
-    /**
-     * Log the current user out of the application.
-     */
-    public function logout(Logout $logout): void
-    {
-        $logout();
-        $this->redirect('/', navigate: true);
-    }
-};
-@endphp
 <div>
    <!-- Navbar-->
     <header class="app-header"><a class="app-header__logo" href="{{ route('dashboard') }}">Vali</a>
@@ -21,7 +5,14 @@ new class extends Component
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
         <!-- User Menu-->
-        <li class="dropdown"><a class="app-nav__item" href="#" data-bs-toggle="dropdown" aria-label="Open Profile Menu"><i class="bi bi-person fs-4"></i></a>
+        <li class="dropdown">
+            <a
+                class="app-nav__item"
+                href="#"
+                data-bs-toggle="dropdown"
+                aria-label="Open Profile Menu">
+                <i class="bi bi-person fs-4"></i>
+            </a>
             <ul class="dropdown-menu settings-menu dropdown-menu-right">
                 <li>
                     <a class="dropdown-item" href="{{ route('profile') }}">
@@ -29,7 +20,7 @@ new class extends Component
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" wire:click="logout">
+                    <a class="dropdown-item" href="{{ route('logout') }}">
                         <i class="bi bi-box-arrow-right me-2 fs-5"></i> {{ __('Log Out') }}
                     </a>
                 </li>

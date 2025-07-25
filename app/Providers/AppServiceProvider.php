@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Menu do sistema:
         View::composer('*', function ($view) use ($menuService) {
-            $view->with('menu', $menuService->build());
+            $view->with('menu', $menuService->getMenu());
         });
     }
 }

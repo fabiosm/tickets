@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\IsAdmin;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\Framework\Attributes\Ticket;
+use Illuminate\Support\Facades\Session;
 
 Route::view('/', 'welcome');
 
@@ -12,12 +14,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('tickets/fila/{tipo}', [TicketController::class, 'fila'])->name('tickets.fila');
     Route::get('novo', [TicketController::class, 'novo'])->name('tickets.novo');
 
-    // Implentar acesso apenas se for Adm:
-    Route::resource('users', UserController::class);
+    // Rotas apenas para administradores:
+    Route::middleware(IsAdmin::class)->group(function() {
+        Route::resource('users', UserController::class);
+    });
 });
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+Route::middleware('auth')->group(function() {
+    Route::view('profile', 'profile')
+        ->name('profile');
+
+    Route::get('/logout', function() {
+        Auth::guard('web')->logout();
+
+        Session::invalidate();
+        Session::regenerateToken();
+        return redirect('/');
+    })->name('logout');
+});
 
 require __DIR__.'/auth.php';
