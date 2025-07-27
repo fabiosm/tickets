@@ -30,11 +30,18 @@ class LoginForm extends Form
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only(['email', 'password']), $this->remember)) {
+        if (!Auth::attempt($this->only(['email', 'password']), $this->remember)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
                 'form.email' => trans('auth.failed'),
+            ]);
+        }
+
+        // Verifica se usuário está ativo:
+        if (!Auth::user()->is_active) {
+            throw ValidationException::withMessages([
+                'form.email' => __('Sua conta está desativada.'),
             ]);
         }
 
