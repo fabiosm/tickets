@@ -17,6 +17,11 @@ class UserTable extends DataTableComponent
         $this->setPrimaryKey('id');
     }
 
+    public function openModalEdit(int $id)
+    {
+        $this->dispatch('openModalUserEdit', $id);
+    }
+
     public function columns(): array
     {
         return [
@@ -27,16 +32,12 @@ class UserTable extends DataTableComponent
                 $isAdmin = ($value) ? 'checked' : '';
                 return '<input class="form-check-input" disabled '.$isAdmin.' type="checkbox" />';
             })->html(),
-            Column::make('Ações', 'id')->format(function($value) {
+            Column::make('Ações', 'id')->format(function($id) {
                 return '<a
-                    data-bs-toggle="tooltip"
-                    title="Mensagem do tooltip"
                     class="badge bg-success"
-                    wire:click="abreModal"
-                    style="cursor:pointer; text-decoration: none;">Editar</a>
+                    wire:click="openModalEdit('.$id.')"
+                    style="cursor:pointer; text-decoration:none;">Editar</a>
                     <a
-                    data-bs-toggle="tooltip"
-                    title="Mensagem do tooltip"
                     class="badge bg-danger"
                     wire:click="abreModal"
                     style="cursor:pointer; text-decoration: none;">Desativar</a>';

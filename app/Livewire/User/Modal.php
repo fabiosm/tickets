@@ -2,13 +2,12 @@
 
 namespace App\Livewire\User;
 
+use App\Livewire\Base\ModalComponent;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Livewire\Component;
 
-class Modal extends Component
+class Modal extends ModalComponent
 {
-    public bool $showModal = false;
     public string $name;
     public string $email;
     public string $password;
@@ -26,16 +25,7 @@ class Modal extends Component
         return view('livewire.user.modal');
     }
 
-    public function open()
-    {
-        $this->showModal = true;
-    }
-    public function close()
-    {
-        $this->showModal = false;
-    }
-
-    public function save()
+    public function save(): void
     {
         $this->validate();
 

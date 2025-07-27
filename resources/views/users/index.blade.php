@@ -7,4 +7,5 @@
         </div>
     </div>
     <livewire:user.modal />
+    <livewire:user.modal-edit />
 </x-app-layout>

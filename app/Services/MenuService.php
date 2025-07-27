@@ -42,7 +42,7 @@ class MenuService
     {
         $user = Auth::user();
         if (!$user) {
-            abort(403, 'Acesso negado.');
+            return [];
         }
 
         return $this->process($this->menu);

@@ -1,13 +1,4 @@
 <div>
-    <button
-        wire:click="open"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#userCreateModal"
-    >
-        Novo Usuário
-    </button>
-
     <!-- Modal -->
     @if($showModal)
         <dialog
@@ -22,7 +13,7 @@
                 <div class="modal-content">
                     <form wire:submit.prevent="save">
                         <div class="modal-header">
-                            <h5 class="modal-title">Cadastrar Usuário</h5>
+                            <h5 class="modal-title">Editar Usuário</h5>
                             <button type="button" class="btn-close" wire:click="close" aria-label="Fechar"></button>
                         </div>
 
@@ -39,6 +30,23 @@
                                 @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 
+                            <div class="mb-3 form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" wire:model.defer="isAdmin">
+                                    <b>Administrador</b>
+                                </label>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" wire:click="$toggle('changePassword')">
+                                    Alterar senha?
+                                </label>
+                            </div>
+
+                        @if ($changePassword)
+                            <hr/>
+
                             <div class="mb-3">
                                 <label for="password" class="form-label">Senha</label>
                                 <input type="password" wire:model.defer="password" id="password" class="form-control">
@@ -51,6 +59,8 @@
                                 @error('passwordConfirmation') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
+                    @endif
+                        <input type="hidden" name="idUser" id="idUser" wire:model.defer="idUser" />
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" wire:click="close">Cancelar</button>
@@ -62,4 +72,3 @@
         </dialog>
     @endif
 </div>
-

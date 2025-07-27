@@ -2,20 +2,18 @@
 
 namespace App\Livewire\Ticket;
 
+use App\Livewire\Base\ModalComponent;
 use Livewire\Attributes\On;
-use Livewire\Component;
 
-class Modal extends Component
+class Modal extends ModalComponent
 {
-    public $showModal = false;
-
     #[On('openModal')]
-    public function open(int $id)
+    public function open(): void
     {
         $this->showModal = true;
         $this->dispatch('show-bs-modal');
     }
-    public function close()
+    public function close(): void
     {
         $this->showModal = false;
         $this->dispatch('hide-bs-modal');
@@ -25,5 +23,10 @@ class Modal extends Component
     {
         $this->dispatch('scriptModalTicket');
         return view('livewire.ticket.modal');
+    }
+
+    public function save(): void
+    {
+        // Implementar
     }
 }
