@@ -31,6 +31,10 @@ class MenuService
                     'url' => 'users.index'
                 ],
                 [
+                    'name' => 'Filas',
+                    'url' => 'filas'
+                ],
+                [
                     'name' => 'Ticket',
                     'url' => 'dashboard'
                 ]

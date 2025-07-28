@@ -16,11 +16,12 @@ class UserTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setTrAttributes(function($row) {
-            if ($row->is_active == 0) {
-                return [
-                    'class' => 'table-danger text-muted',
-                ];
+            if (!$row->is_active) {
+                return ['class' => 'table-danger text-muted'];
+            } elseif ($row->is_pending) {
+                return ['class' => 'table-warning text-muted'];
             }
+
             return [];
         });
     }
@@ -30,21 +31,34 @@ class UserTable extends DataTableComponent
         $this->dispatch('openModalUserEdit', $id);
     }
 
-    public function alterarStatus(int $idUser, bool $status): void
+    public function alterarStatus(
+        int $idUser,
+        bool $status,
+        string $campo = 'is_active'
+    ): void
     {
         if ($user = User::find($idUser)) {
-            $user->is_active = $status;
+            $user->$campo = $status;
             $user->save();
 
             $this->dispatch('refreshUserTable');
 
-            $this->dispatch(
-                'showToast',
-                [
+            $msg = [
+                'message' => $status ?
+                    'Usuário reativado com sucesso!' :
+                    'Usuário desativado com sucesso!'
+            ];
+            if ($campo == 'is_pending') {
+                $msg = [
                     'message' => $status ?
-                        'Usuário reativado com sucesso!' :
-                        'Usuário desativado com sucesso!'
-                    ]
+                        'Usuário alterado para pendente!':
+                        'Usuário liberado com sucesso!'
+                ];
+            }
+
+            $this->dispatch(
+            'showToast',
+            $msg
             );
         }
     }
@@ -53,29 +67,47 @@ class UserTable extends DataTableComponent
     {
         return [
             Column::make('Usuário', 'name')->sortable()->searchable(),
-            Column::make('E-mail', 'email')->sortable()->searchable(),
+            Column::make('E-mail', 'email')->format(function($value, $row) {
+                $info = '';
+                if ($row->is_pending) {
+                    $info = '&nbsp;&nbsp;<b>(e-mail pendente)</b>';
+                }
+
+                return $value.$info;
+            })->html()->sortable()->searchable(),
             Column::make('Data criação', 'created_at')->sortable()->searchable(),
             Column::make('Admin', 'is_admin')->format(function($value) {
                 $isAdmin = ($value) ? 'checked' : '';
                 return '<input class="form-check-input" disabled '.$isAdmin.' type="checkbox" />';
             })->html(),
             Column::make('Ativo', 'is_active')->hideIf(true),
+            Column::make('Pendente', 'is_pending')->hideIf(true),
             Column::make('Ações', 'id')->format(function($id, $row) {
-                if ($row->is_active == 1) {
-                    return '
+                if ($row->is_active) {
+                    $htmlButton = '
                         <a class="badge bg-success"
                         wire:click="openModalEdit('.$id.')"
                         style="cursor:pointer; text-decoration:none;">Editar</a>
                         <a class="badge bg-danger"
                         wire:click="alterarStatus('.$id.', false)"
                         style="cursor:pointer; text-decoration:none;">Desativar</a>';
+
+                    if ($row->is_pending) {
+                        $htmlButton .= '
+                            <a class="badge bg-warning"
+                            wire:click="alterarStatus('.$id.', false, \'is_pending\')"
+                            style="cursor:pointer; text-decoration:none;">Aprovar</a>
+                        ';
+                    }
                 } else {
-                    return '
+                    $htmlButton = '
                         <a class="badge bg-secondary"
                         wire:click="alterarStatus('.$id.', true)"
                         style="cursor:pointer; text-decoration:none;">Reativar</a>
                     ';
                 }
+
+                return $htmlButton;
 
             })->html()
         ];

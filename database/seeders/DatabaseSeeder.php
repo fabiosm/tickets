@@ -19,14 +19,16 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@example.com',
             'password' => bcrypt('123456'),
-            'is_admin' => true
+            'is_admin' => true,
+            'is_pending' => false
         ]);
 
         User::factory()->create([
             'name' => 'Fábio Marcelino',
             'email' => 'fabio_s.m@hotmail.com',
             'password' => bcrypt('123456'),
-            'is_admin' => true
+            'is_admin' => true,
+            'is_pending' => false
         ]);
     }
 }
