@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\admin\FilasController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\TicketController;
-use App\Http\Controllers\UserController;
+
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +18,8 @@ Route::middleware(['auth', 'verified', 'checkUserStatus'])->group(function () {
 
     // Rotas apenas para administradores:
     Route::middleware(IsAdmin::class)->group(function() {
-        Route::resource('users', UserController::class);
+        Route::get('users', [UserController::class, 'index'])->name('users');
+        Route::get('admin/filas', [FilasController::class, 'index'])->name('admin.filas');
     });
 });
 

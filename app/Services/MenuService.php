@@ -28,15 +28,15 @@ class MenuService
             'menu' => [
                 [
                     'name' => 'Usuários',
-                    'url' => 'users.index'
+                    'url' => 'users'
                 ],
                 [
                     'name' => 'Filas',
-                    'url' => 'filas'
+                    'url' => 'admin.filas'
                 ],
                 [
                     'name' => 'Ticket',
-                    'url' => 'dashboard'
+                    'url' => 'admin.tickets'
                 ]
             ]
         ]

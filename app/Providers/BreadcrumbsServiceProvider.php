@@ -65,13 +65,24 @@ class BreadcrumbsServiceProvider extends ServiceProvider
             );
        });
 
-        Breadcrumbs::for('users.index', function ($trail) {
+        Breadcrumbs::for('users', function ($trail) {
             $trail->push(
                 'Usuários',
-                route('users.index'),
+                route('users'),
                 [
                     'icon' => 'bi bi-people-fill',
                     'text' => 'Gestão de acesso ao sistema',
+                ]
+            );
+       });
+
+        Breadcrumbs::for('admin.filas', function ($trail) {
+            $trail->push(
+                'Gestão de filas',
+                route('admin.filas'),
+                [
+                    'icon' => 'bi bi-hdd-rack',
+                    'text' => 'Gestão de acesso as filas de tickets',
                 ]
             );
        });
