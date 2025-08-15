@@ -20,9 +20,12 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('logout') }}">
-                        <i class="bi bi-box-arrow-right me-2 fs-5"></i> {{ __('Log Out') }}
-                    </a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="dropdown-item">
+                            <i class="bi bi-box-arrow-right me-2 fs-5"></i> {{ __('Log Out') }}
+                        </button>
+                    </form>
                 </li>
             </ul>
         </li>

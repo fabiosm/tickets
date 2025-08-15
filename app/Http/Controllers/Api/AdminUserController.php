@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {
@@ -14,10 +17,16 @@ class AdminUserController extends Controller
         $users = User::select($columns)->get();
         return response()->json(['data' => $users]);
     }
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
+        $data = $request->safe()->except('password');
         $user = User::findOrFail($id);
-        $user->update($request->all());
-        return response()->json(['data' => $user]);
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->fill($data)->save();
+        return response()->json(['data' => new UserResource($user)]);
     }
 }

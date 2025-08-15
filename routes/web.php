@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function() {
     Route::view('profile', 'profile')
         ->name('profile');
 
-    Route::get('/logout', function() {
+    Route::post('/logout', function() {
         Auth::guard('web')->logout();
 
         Session::invalidate();
