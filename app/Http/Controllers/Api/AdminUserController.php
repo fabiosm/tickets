@@ -26,6 +26,8 @@ class AdminUserController extends Controller
             $user->password = Hash::make($request->password);
         }
 
+        $this->authorize('update',  [$user, $request->input('is_admin')]);
+
         $user->fill($data)->save();
         return response()->json(['data' => new UserResource($user)]);
     }

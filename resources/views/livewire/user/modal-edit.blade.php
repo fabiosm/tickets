@@ -32,7 +32,12 @@
 
                             <div class="mb-3 form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" wire:model.defer="isAdmin">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        wire:model.defer="isAdmin"
+                                        @if (auth()->user()->id === $idUser) disabled @endif
+                                    >
                                     <b>Administrador</b>
                                 </label>
                             </div>

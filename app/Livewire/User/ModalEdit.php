@@ -51,6 +51,10 @@ class ModalEdit extends ModalComponent
         $this->validate();
 
         $user = User::find($this->idUser);
+
+        // Aplica policy
+        $this->authorize('update',  [$user, $this->isAdmin]);
+
         $user->name = $this->name;
         $user->email = $this->email;
 
